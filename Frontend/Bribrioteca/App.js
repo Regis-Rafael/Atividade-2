@@ -1,48 +1,43 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider, useTheme } from "./src/util/ThemeService";
-import Store from './src/util/Store';
-import BookList from './src/screens/BookList';
-import BookDetails from './src/screens/BookDetails';
-import BookForm from './src/screens/BookForm';
-import FeedbackModal from './src/components/FeedbackModal';
-import DeleteModal from './src/components/DeleteModal';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ThemeProvider } from './src/redux/ThemeService';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
+
+import LoginScreen from './src/screens/Login';
+import RegisterScreen from './src/screens/Register';
+import LivrosListScreen from './src/screens/BookList';
 
 const Stack = createStackNavigator();
 
-const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="BookList">
-    <Stack.Screen 
-      name="BookList" 
-      component={BookList} 
-      options={{ title: 'Lista de Livros' }} 
-    />
-    <Stack.Screen 
-      name="BookDetails" 
-      component={BookDetails} 
-      options={{ title: 'Detalhes do Livro' }} 
-    />
-    <Stack.Screen 
-      name="BookForm" 
-      component={BookForm} 
-      options={{ title: 'Adicionar/Editar Livro' }} 
-    />
-  </Stack.Navigator>
-);
-
 export default function App() {
-  const { theme } = useTheme();
-
   return (
-    <Provider store={Store}>
+    <Provider store={store}>
       <ThemeProvider>
-        <NavigationContainer theme={theme}>
-          <AppNavigator />
-        </NavigationContainer>
-        <FeedbackModal />
-        <DeleteModal />
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }} >
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Register"
+                component={RegisterScreen}
+                options={{ title: 'Cadastrar' }}
+              />
+              <Stack.Screen
+                name="LivrosList"
+                component={LivrosListScreen}
+                options={{ title: 'Meus Livros' }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
       </ThemeProvider>
     </Provider>
   );
