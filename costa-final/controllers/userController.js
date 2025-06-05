@@ -1,15 +1,14 @@
 const User = require('../models/user');
-o
 async function register(req, res) {
   try {
-    const { email, password } = req.body;
+    const { email, senha } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'E-mail já cadastrado' });
     }
 
-    const newUser = new User({ email, password });
+    const newUser = new User({ email, senha });
     await newUser.save();
 
     res.status(201).json({ message: 'Usuário registrado com sucesso' });
