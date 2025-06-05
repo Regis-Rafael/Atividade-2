@@ -93,13 +93,13 @@ const API_URL = 'http://{IP da máquina}:8000/api';
 Inicie o Metro Bundler:
 
 ```bash
-npx react-native start
+npx expo start
 ```
 
 Rode o app em um emulador Android ou dispositivo físico:
 
 ```bash
-npx react-native run-android
+npx expo run-android
 ```
 
 > Certifique-se de que o emulador Android está ativo ou que o dispositivo físico esteja com **depuração USB** ativada.
